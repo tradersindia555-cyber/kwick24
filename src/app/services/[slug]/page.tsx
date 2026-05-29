@@ -42,9 +42,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <Header />
-      <main className="pt-24 pb-16 min-h-screen">
-        <div className="container mx-auto px-4 md:px-6">
+        <div className="pt-24 pb-16 container mx-auto px-4 md:px-6">
           <Link
             href="/#services"
             className="inline-flex items-center gap-2 text-gold/80 hover:text-gold mb-8 transition-colors"
@@ -102,8 +100,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             </div>
           </div>
         </div>
-      </main>
-      <Footer />
     </>
   );
 }

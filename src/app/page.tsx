@@ -1,5 +1,3 @@
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/home/Hero";
 import { ServiceCategories } from "@/components/home/ServiceCategories";
 import { WhyChoose } from "@/components/home/WhyChoose";
@@ -11,8 +9,6 @@ import { MobileApp } from "@/components/home/MobileApp";
 export default function HomePage() {
   return (
     <>
-      <Header />
-      <main>
         <Hero />
         <ServiceCategories />
         <WhyChoose />
@@ -20,8 +16,6 @@ export default function HomePage() {
         <HowItWorks />
         <Testimonials />
         <MobileApp />
-      </main>
-      <Footer />
     </>
   );
 }

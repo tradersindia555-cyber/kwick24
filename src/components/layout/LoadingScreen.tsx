@@ -39,7 +39,7 @@ export function LoadingScreen() {
               className="rounded-3xl p-2"
             >
               <Image
-                src="/image.png"
+                src="/images/kwick24_logo.png"
                 alt="Kwick24 Services"
                 width={100}
                 height={100}

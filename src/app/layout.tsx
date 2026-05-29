@@ -4,6 +4,8 @@ import { BookingProvider } from "@/context/BookingContext";
 import { LoadingScreen } from "@/components/layout/LoadingScreen";
 import { BookingModal } from "@/components/booking/BookingModal";
 import "./globals.css";
+import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -52,7 +54,12 @@ export default function RootLayout({
       <body className="min-h-screen bg-[#0A0A0A] text-white antialiased">
         <BookingProvider>
           <LoadingScreen />
+          <Header />
+      <main>
+
           {children}
+      </main>
+      <Footer />
           <BookingModal />
         </BookingProvider>
       </body>

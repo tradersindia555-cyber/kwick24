@@ -2,32 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  Car,
-  Bike,
-  Home,
-  Zap,
-  Droplets,
-  Wind,
-  Paintbrush,
-  Hammer,
-  Truck,
-} from "lucide-react";
+
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { serviceCategories } from "@/lib/data/services";
-
-const iconMap: Record<string, React.ComponentType<{ className?: string; size?: number }>> = {
-  car: Car,
-  bike: Bike,
-  home: Home,
-  zap: Zap,
-  droplets: Droplets,
-  wind: Wind,
-  paintbrush: Paintbrush,
-  hammer: Hammer,
-  truck: Truck,
-};
+import { ServiseCard } from "../ui/ServicesCard";
 
 const container = {
   hidden: { opacity: 0 },
@@ -60,23 +39,8 @@ export function ServiceCategories() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"
         >
-          {serviceCategories.map((service) => {
-            const Icon = iconMap[service.icon] ?? Home;
-            return (
-              <motion.div key={service.slug} variants={item}>
-                <Link href={`/services/${service.slug}`}>
-                  <GlassCard className="p-6 md:p-8 text-center group cursor-pointer h-full">
-                    <div className="w-14 h-14 md:w-16 md:h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 flex items-center justify-center group-hover:shadow-gold-glow group-hover:scale-110 transition-all duration-300">
-                      <Icon className="text-gold" size={28} />
-                    </div>
-                    <h3 className="font-medium text-white text-sm md:text-base group-hover:text-gold transition-colors">
-                      {service.name}
-                    </h3>
-                  </GlassCard>
-                </Link>
-              </motion.div>
-            );
-          })}
+          {serviceCategories.map((service) =><ServiseCard service={service}/>
+          )}
         </motion.div>
       </div>
     </section>

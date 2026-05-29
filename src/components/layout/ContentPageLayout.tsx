@@ -18,7 +18,6 @@ export function ContentPageLayout({
 }: ContentPageLayoutProps) {
   return (
     <>
-      <Header />
       <main className="pt-24 pb-16 min-h-screen">
         <div className="container mx-auto px-4 md:px-6 max-w-3xl">
           <GoldDivider className="mb-6 max-w-xs" />
@@ -35,7 +34,6 @@ export function ContentPageLayout({
           <div className="space-y-6 text-zinc-400 leading-relaxed">{children}</div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

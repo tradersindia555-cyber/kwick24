@@ -1,4 +1,16 @@
 import type { Service } from "@/types";
+import {
+  Car,
+  Bike,
+  Home,
+  Zap,
+  Droplets,
+  Wind,
+  Paintbrush,
+  Hammer,
+  Truck,
+} from "lucide-react";
+
 
 export const heroSlides = [
   {
@@ -43,17 +55,90 @@ export const heroSlides = [
   },
 ];
 
+// export const serviceCategories = [
+//   { name: "Car Wash", slug: "car-wash", icon: "car", },
+//   { name: "Puncture Repair", slug: "puncture-repair", icon: "bike" },
+//   { name: "Home Cleaning", slug: "home-cleaning", icon: "home" },
+//   { name: "Electrician", slug: "electrician", icon: "zap" },
+//   { name: "Plumber", slug: "plumber", icon: "droplets" },
+//   { name: "AC Repair", slug: "ac-repair", icon: "wind" },
+//   { name: "Bike Service", slug: "bike-service", icon: "bike" },
+//   { name: "Painter", slug: "painter", icon: "paintbrush" },
+//   { name: "Carpenter", slug: "carpenter", icon: "hammer" },
+//   { name: "Movers & Packers", slug: "movers-packers", icon: "truck" },
+// ];
+
 export const serviceCategories = [
-  { name: "Car Wash", slug: "car-wash", icon: "car" },
-  { name: "Puncture Repair", slug: "puncture-repair", icon: "bike" },
-  { name: "Home Cleaning", slug: "home-cleaning", icon: "home" },
-  { name: "Electrician", slug: "electrician", icon: "zap" },
-  { name: "Plumber", slug: "plumber", icon: "droplets" },
-  { name: "AC Repair", slug: "ac-repair", icon: "wind" },
-  { name: "Bike Service", slug: "bike-service", icon: "bike" },
-  { name: "Painter", slug: "painter", icon: "paintbrush" },
-  { name: "Carpenter", slug: "carpenter", icon: "hammer" },
-  { name: "Movers & Packers", slug: "movers-packers", icon: "truck" },
+  {
+    name: "Car Wash",
+    slug: "car-wash",
+    icon: Car,
+    description:
+      "Professional car washing and detailing services at your doorstep.",
+  },
+  {
+    name: "Puncture Repair",
+    slug: "puncture-repair",
+    icon: Bike,
+    description:
+      "Quick puncture repair and tire support for bikes and vehicles.",
+  },
+  {
+    name: "Home Cleaning",
+    slug: "home-cleaning",
+    icon: Home,
+    description:
+      "Deep cleaning and housekeeping services for homes and offices.",
+  },
+  {
+    name: "Electrician",
+    slug: "electrician",
+    icon: Zap,
+    description:
+      "Licensed electrical repairs, wiring, and installations.",
+  },
+  {
+    name: "Plumber",
+    slug: "plumber",
+    icon: Droplets,
+    description:
+      "Leak fixes, fittings, and full plumbing support.",
+  },
+  {
+    name: "AC Repair",
+    slug: "ac-repair",
+    icon: Wind,
+    description:
+      "AC service, gas refill, and cooling maintenance.",
+  },
+  {
+    name: "Bike Service",
+    slug: "bike-service",
+    icon: Bike,
+    description:
+      "Complete bike servicing, maintenance, and repair solutions.",
+  },
+  {
+    name: "Painter",
+    slug: "painter",
+    icon: Paintbrush,
+    description:
+      "Interior and exterior painting with premium finish.",
+  },
+  {
+    name: "Carpenter",
+    slug: "carpenter",
+    icon: Hammer,
+    description:
+      "Furniture, fittings, and custom woodwork solutions.",
+  },
+  {
+    name: "Movers & Packers",
+    slug: "movers-packers",
+    icon: Truck,
+    description:
+      "Safe shifting, packing, and transportation services.",
+  },
 ];
 
 export const services: Service[] = [

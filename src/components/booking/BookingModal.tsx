@@ -21,6 +21,7 @@ export function BookingModal() {
 
   useEffect(() => {
     if (selectedService) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setForm((f) => ({
         ...f,
         serviceId: selectedService.id,

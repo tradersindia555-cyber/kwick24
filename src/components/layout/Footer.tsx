@@ -69,6 +69,11 @@ export function Footer() {
                   Become a Partner
                 </Link>
               </li>
+              <li>
+                <Link href="/contact-us" className="hover:text-gold transition-colors">
+                  Contact Us
+                </Link>
+              </li>
             </ul>
           </div>
 

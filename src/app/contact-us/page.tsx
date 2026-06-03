@@ -14,10 +14,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { ContactForm } from "@/components/contacts/ContactForm";
-import { contactDetails ,helpCards,features} from "@/lib/data/contactData";
-
-
-
+import { contactDetails, helpCards, features } from "@/lib/data/contactData";
 
 export default function ContactUsPage() {
   return (
@@ -57,7 +54,9 @@ export default function ContactUsPage() {
                     key={item.label}
                     className="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-white/[0.03] px-3 py-1.5 text-sm text-zinc-200 backdrop-blur-sm"
                   >
-                    <span className="text-gold">{item.icon}</span>
+                    <span className="text-gold">
+                      <item.icon className="text-gold" size={16} />
+                    </span>
                     <span>{item.label}</span>
                   </span>
                 ))}
@@ -131,13 +130,9 @@ export default function ContactUsPage() {
                     </span>
 
                     <div>
-                      <h3 className="font-semibold text-white">
-                        {card.title}
-                      </h3>
+                      <h3 className="font-semibold text-white">{card.title}</h3>
 
-                      <p className="mt-1 text-sm text-zinc-400">
-                        {card.body}
-                      </p>
+                      <p className="mt-1 text-sm text-zinc-400">{card.body}</p>
 
                       <a
                         href={card.href}
@@ -160,71 +155,71 @@ export default function ContactUsPage() {
           >
             <ContactForm />
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {contactDetails.map((c) => (
-                  <GlassCard key={c.title} className="p-5" hover>
-                    <a
-                      href={c.href}
-                      className="flex items-start gap-3 group"
-                      aria-label={`${c.title}: ${c.value}`}
-                      target={c.href.startsWith("http") ? "_blank" : undefined}
-                      rel={c.href.startsWith("http") ? "noreferrer" : undefined}
-                    >
-                      <span className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/20 flex items-center justify-center shrink-0">
-                        <c.icon className="text-gold" size={18} />
-                      </span>
-                      <div className="min-w-0">
-                        <p className="text-sm text-zinc-400">{c.title}</p>
-                        <p className="text-white font-semibold truncate group-hover:text-gold transition-colors">
-                          {c.value}
-                        </p>
-                      </div>
-                    </a>
-                  </GlassCard>
+              {contactDetails.map((c) => (
+                <GlassCard key={c.title} className="p-5" hover>
+                  <a
+                    href={c.href}
+                    className="flex items-start gap-3 group"
+                    aria-label={`${c.title}: ${c.value}`}
+                    target={c.href.startsWith("http") ? "_blank" : undefined}
+                    rel={c.href.startsWith("http") ? "noreferrer" : undefined}
+                  >
+                    <span className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/20 flex items-center justify-center shrink-0">
+                      <c.icon className="text-gold" size={18} />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm text-zinc-400">{c.title}</p>
+                      <p className="text-white font-semibold truncate group-hover:text-gold transition-colors">
+                        {c.value}
+                      </p>
+                    </div>
+                  </a>
+                </GlassCard>
+              ))}
+            </div>
+
+            {/* Map */}
+            <GlassCard className="mt-6 overflow-hidden" hover>
+              <div className="p-5 md:p-6 flex items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-white font-semibold text-lg">
+                    We’re available across Punjab
+                  </h3>
+                  <p className="text-sm text-zinc-400 mt-1">
+                    Book services and get support in your city.
+                  </p>
+                </div>
+                <span className="w-12 h-12 rounded-2xl bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/20 flex items-center justify-center shrink-0">
+                  <MapPinned className="text-gold" size={18} />
+                </span>
+              </div>
+              <div className="relative h-56 md:h-64 border-t border-white/10">
+                <iframe
+                  title="Punjab, India map"
+                  className="absolute inset-0 w-full h-full"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  src="https://www.google.com/maps?q=Punjab%2C%20India&output=embed"
+                />
+              </div>
+            </GlassCard>
+
+            {/* Social placeholder */}
+            <div className="mt-6 flex items-center justify-between gap-4">
+              <p className="text-sm text-zinc-500">
+                Follow us for updates (placeholders):
+              </p>
+              <div className="flex gap-2">
+                {["Facebook", "Instagram", "X", "LinkedIn"].map((s) => (
+                  <span
+                    key={s}
+                    className="px-3 py-2 rounded-lg border border-gold/15 bg-white/[0.02] text-xs text-zinc-300"
+                  >
+                    {s}
+                  </span>
                 ))}
               </div>
-
-              {/* Map */}
-              <GlassCard className="mt-6 overflow-hidden" hover>
-                <div className="p-5 md:p-6 flex items-center justify-between gap-4">
-                  <div>
-                    <h3 className="text-white font-semibold text-lg">
-                      We’re available across Punjab
-                    </h3>
-                    <p className="text-sm text-zinc-400 mt-1">
-                      Book services and get support in your city.
-                    </p>
-                  </div>
-                  <span className="w-12 h-12 rounded-2xl bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/20 flex items-center justify-center shrink-0">
-                    <MapPinned className="text-gold" size={18} />
-                  </span>
-                </div>
-                <div className="relative h-56 md:h-64 border-t border-white/10">
-                  <iframe
-                    title="Punjab, India map"
-                    className="absolute inset-0 w-full h-full"
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    src="https://www.google.com/maps?q=Punjab%2C%20India&output=embed"
-                  />
-                </div>
-              </GlassCard>
-
-              {/* Social placeholder */}
-              <div className="mt-6 flex items-center justify-between gap-4">
-                <p className="text-sm text-zinc-500">
-                  Follow us for updates (placeholders):
-                </p>
-                <div className="flex gap-2">
-                  {["Facebook", "Instagram", "X", "LinkedIn"].map((s) => (
-                    <span
-                      key={s}
-                      className="px-3 py-2 rounded-lg border border-gold/15 bg-white/[0.02] text-xs text-zinc-300"
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            </div>
           </motion.div>
         </div>
 
@@ -252,9 +247,7 @@ export default function ContactUsPage() {
 
               <div className="flex w-full flex-col gap-3 sm:flex-row md:w-auto">
                 <Link href="/#services" className="w-full sm:w-auto">
-                  <Button className="w-full">
-                    Explore Services
-                  </Button>
+                  <Button className="w-full">Explore Services</Button>
                 </Link>
 
                 <a

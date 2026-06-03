@@ -6,6 +6,9 @@ import { BookingModal } from "@/components/booking/BookingModal";
 import "./globals.css";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import BookingStatusModel from "@/components/booking/BookingStatusModel";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -55,13 +58,12 @@ export default function RootLayout({
         <BookingProvider>
           <LoadingScreen />
           <Header />
-      <main>
-
-          {children}
-      </main>
-      <Footer />
+          <main>{children}</main>
+          <Footer />
+          <BookingStatusModel />
           <BookingModal />
         </BookingProvider>
+        <ToastContainer position="top-right" autoClose={3000} />
       </body>
     </html>
   );

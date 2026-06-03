@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { GlassCard } from "@/components/ui/GlassCard";
 import { serviceCategories } from "@/lib/data/services";
 import { ServiseCard } from "../ui/ServicesCard";
 
@@ -39,8 +38,9 @@ export function ServiceCategories() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"
         >
-          {serviceCategories.map((service) =><ServiseCard service={service}/>
-          )}
+          {serviceCategories.map((service) => (
+            <ServiseCard key={service.slug} service={service} />
+          ))}
         </motion.div>
       </div>
     </section>

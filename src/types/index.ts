@@ -47,3 +47,18 @@ export interface StatItem {
   value: number;
   suffix?: string;
 }
+export interface BookingStatus {
+  type: "success" | "error" | null;
+  title: string;
+  message: string;
+}
+
+export interface BookingContextType {
+  isOpen: boolean;
+  selectedService: { id: string; name: string } | null;
+  bookingStatus: BookingStatus | null;
+  openBooking: (service?: { id: string; name: string }) => void;
+  closeBooking: () => void;
+  closeStatusModal: () => void;
+  submitBooking: (data: BookingFormData) => Promise<boolean>;
+}

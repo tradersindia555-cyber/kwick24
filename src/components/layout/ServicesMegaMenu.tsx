@@ -75,7 +75,7 @@ export function ServicesMegaMenu({
 
   const { cols, maxItems } = useMemo(
     () => getGridConfig(items.length),
-    [items.length]
+    [items.length],
   );
 
   if (variant === "mobile") {
@@ -93,7 +93,7 @@ export function ServicesMegaMenu({
             size={18}
             className={cn(
               "text-gold transition-transform duration-200",
-              open && "rotate-180"
+              open && "rotate-180",
             )}
             aria-hidden="true"
           />
@@ -173,7 +173,7 @@ export function ServicesMegaMenu({
           size={16}
           className={cn(
             "transition-transform duration-200 text-gold/80 group-hover:text-gold",
-            open && "rotate-180"
+            open && "rotate-180",
           )}
           aria-hidden="true"
         />
@@ -188,7 +188,7 @@ export function ServicesMegaMenu({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute left-1/2 -translate-x-1/2 mt-4 w-[min(900px,calc(100vw-2rem))] z-[60]"
+            className="absolute left-1/2 -translate-x-1/2 mt-4 w-[min(1100px,calc(100vw-2rem))] z-[60]"
           >
             <div className="rounded-2xl shadow-2xl shadow-black/50 border border-gold/10 bg-[#0A0A0A]/98 backdrop-blur-xl p-5 md:p-6">
               <div
@@ -236,4 +236,3 @@ export function ServicesMegaMenu({
     </div>
   );
 }
-

@@ -3,6 +3,7 @@ export const telegramMessages = {
     return `
   📌 NEW BOOKING
   
+  👤 Name: ${data.name}
   🛠 Service: ${data.serviceName || "N/A"}
   📅 Date: ${data.date || "N/A"}
   ⏰ Time: ${data.time || "N/A"}

@@ -1,5 +1,7 @@
 import { z } from "zod";
 export const bookingSchema = z.object({
+  name: z.string().min(2, "Name is required").max(100, "Name is too long"),
+
   serviceId: z.string().min(1, "Please select a service"),
 
   date: z

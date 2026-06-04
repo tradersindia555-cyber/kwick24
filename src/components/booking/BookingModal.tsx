@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Calendar, Clock, MapPin, Phone, Wrench, FileText } from "lucide-react";
-import { z } from "zod";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,7 +20,6 @@ export function BookingModal() {
   const [loading, setLoading] = useState(false);
 
   const {
-    clearErrors,
     register,
     handleSubmit,
     reset,
@@ -30,6 +28,7 @@ export function BookingModal() {
   } = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
     defaultValues: {
+      name: "",
       serviceId: "",
       date: "",
       time: "",
@@ -114,6 +113,34 @@ export function BookingModal() {
       size="lg"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Name */}
+          <InputShell
+            label="Full Name"
+            icon={<FileText size={18} />}
+            error={errors.name?.message}
+          >
+            <input
+              {...register("name")}
+              placeholder="Enter your name"
+              className="w-full bg-transparent text-white px-11 py-3 outline-none"
+            />
+          </InputShell>
+
+          {/* Phone */}
+          <InputShell
+            label="Phone Number"
+            icon={<Phone size={18} />}
+            error={errors.phone?.message}
+          >
+            <input
+              {...register("phone")}
+              placeholder="+91 9876543210"
+              className="w-full bg-transparent text-white px-11 py-3 outline-none"
+            />
+          </InputShell>
+        </div>
+        {/* Service */}
         <InputShell
           label="Service"
           icon={<Wrench size={18} />}
@@ -138,8 +165,8 @@ export function BookingModal() {
             ))}
           </select>
         </InputShell>
-
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Date */}
           <InputShell
             label="Date"
             icon={<Calendar size={18} />}
@@ -153,6 +180,7 @@ export function BookingModal() {
             />
           </InputShell>
 
+          {/* Time */}
           <InputShell
             label="Time"
             icon={<Clock size={18} />}
@@ -165,19 +193,7 @@ export function BookingModal() {
             />
           </InputShell>
         </div>
-
-        <InputShell
-          label="Phone Number"
-          icon={<Phone size={18} />}
-          error={errors.phone?.message}
-        >
-          <input
-            {...register("phone")}
-            placeholder="+91 9876543210"
-            className="w-full bg-transparent text-white px-11 py-3 outline-none"
-          />
-        </InputShell>
-
+        {/* Full Width Address */}
         <InputShell
           label="Address"
           icon={<MapPin size={18} />}
@@ -192,13 +208,14 @@ export function BookingModal() {
           />
         </InputShell>
 
+        {/* Full Width Notes */}
         <InputShell
           label="Notes (Optional)"
           icon={<FileText size={18} />}
           error={errors.notes?.message}
         >
           <textarea
-            rows={3}
+            rows={2}
             {...register("notes")}
             placeholder="Any special instructions..."
             className="w-full bg-transparent text-white px-11 py-3 outline-none resize-none"

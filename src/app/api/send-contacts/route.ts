@@ -1,3 +1,4 @@
+import { appendToSheet } from "@/lib/api/google-sheet";
 import { sendTelegramMessage } from "@/lib/api/telegram";
 import { telegramMessages } from "@/lib/api/telegram-messages";
 import { apiMessages } from "@/lib/messages";
@@ -8,6 +9,13 @@ export async function POST(request: Request) {
     const data = await request.json();
 
     await sendTelegramMessage("contactus", telegramMessages.contact(data));
+    await appendToSheet("Contacts", [
+      data.fullName,
+      data.phone,
+      data.email,
+      data.message,
+      new Date().toISOString(),
+    ]);
 
     return NextResponse.json({
       success: true,

@@ -54,13 +54,12 @@ export function BookingProvider({ children }: { children: ReactNode }) {
         }
 
         closeBooking();
-        toast.success("Your booking has been submitted successfully.");
-        setBookingStatus({
-          type: "success",
-          title: "Booking Confirmed!",
-          message:
-            result?.message || "Your booking has been submitted successfully.",
-        });
+        // setBookingStatus({
+        //   type: "success",
+        //   title: "Booking Confirmed!",
+        //   message:
+        //     result?.message || "Your booking has been submitted successfully.",
+        // });
 
         return true;
       } catch (error: any) {

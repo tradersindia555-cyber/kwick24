@@ -11,7 +11,7 @@ Premium on-demand service marketplace built with Next.js, inspired by Urban Comp
 - **Swiper.js**
 - **Lucide React**
 
-## Getting Started
+## Getting Started test
 
 ```bash
 npm install
@@ -45,9 +45,9 @@ src/
 
 ## Brand Colors
 
-| Token | Value |
-|-------|-------|
-| Gold | `#D4AF37` |
+| Token | Value     |
+| ----- | --------- |
+| Gold  | `#D4AF37` |
 | Black | `#0A0A0A` |
 
 ## Custom Logo

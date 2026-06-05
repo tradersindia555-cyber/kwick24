@@ -1,12 +1,22 @@
 "use client";
 
 import Link from "next/link";
+import type { LucideIcon } from "lucide-react";
 import { GlassCard } from "./GlassCard";
+import { resolveServiceIcon } from "@/lib/service-icons";
+
+interface ServiceCardData {
+  name: string;
+  slug: string;
+  description?: string;
+  icon?: LucideIcon;
+  iconKey?: string;
+}
 
 interface ServiseCardProps {
   varient?: "left" | "center" | "menu";
   className?: string;
-  service: any;
+  service: ServiceCardData;
   withDesc?: boolean;
 }
 
@@ -16,20 +26,22 @@ export function ServiseCard({
   service,
   withDesc = false,
 }: ServiseCardProps) {
+  const Icon = resolveServiceIcon(service.icon, service.iconKey);
+
   return (
-    <Link href={`/services/${service.slug}`} aria-label={service.slug}>
+    <Link href={`/services/${service.slug}`} aria-label={service.name}>
       <GlassCard
-        className={`p-6 md:p-8 ${varient != "left" ? "text-center" : ""} group cursor-pointer h-full`}
+        className={`p-6 md:p-8 ${varient != "left" ? "text-center" : ""} group h-full cursor-pointer ${className ?? ""}`}
       >
         <div
-          className={`w-14 h-14 md:w-16 md:h-16 ${varient != "left" ? "mx-auto" : ""} mb-4 rounded-2xl bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 flex items-center justify-center group-hover:shadow-gold-glow group-hover:scale-110 transition-all duration-300`}
+          className={`mb-4 h-14 w-14 rounded-2xl border border-gold/30 bg-gradient-to-br from-gold/20 to-gold/5 md:h-16 md:w-16 ${varient != "left" ? "mx-auto" : ""} flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-gold-glow`}
         >
-          <service.icon className="text-gold" size={28} />
+          <Icon className="text-gold" size={28} />
         </div>
-        <h3 className="font-medium text-white text-sm md:text-base group-hover:text-gold transition-colors">
+        <h3 className="text-sm font-medium text-white transition-colors group-hover:text-gold md:text-base">
           {service.name}
         </h3>
-        {withDesc && (
+        {withDesc && service.description && (
           <p className="mt-2 text-sm leading-relaxed text-zinc-500">
             {service.description}
           </p>

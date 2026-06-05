@@ -1,24 +1,25 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ChevronDown, MapPin, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
-import { useBooking } from "@/context/BookingContext";
 import { cities } from "@/lib/data/services";
+import { getServiceSearchPath } from "@/lib/search-service";
 
 const searchKeywords = [
-  "'Home Services'",
+  "Home Services",
   "AC Repair",
   "Electrician",
   "Car Wash",
   "Plumber",
-  "Salon at Home",
-  "Cleaning Service",
+  "Home Cleaning",
+  "Bike Service",
 ];
 
 export function LocationSearch() {
-  const { openBooking } = useBooking();
+  const router = useRouter();
 
   const [city, setCity] = useState(cities[0]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,7 +29,7 @@ export function LocationSearch() {
 
   const currentWord = useMemo(
     () => searchKeywords[placeholderIndex],
-    [placeholderIndex]
+    [placeholderIndex],
   );
 
   useEffect(() => {
@@ -47,7 +48,7 @@ export function LocationSearch() {
       } else {
         nextWordTimeout = setTimeout(() => {
           setPlaceholderIndex(
-            (prev) => (prev + 1) % searchKeywords.length
+            (prev) => (prev + 1) % searchKeywords.length,
           );
         }, 1600);
       }
@@ -61,51 +62,59 @@ export function LocationSearch() {
     };
   }, [currentWord]);
 
+  const handleSearch = () => {
+    const path = getServiceSearchPath(searchQuery);
+    router.push(path);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSearch();
+    }
+  };
+
   return (
-    <div className="flex flex-col sm:flex-row gap-3 mb-8 p-2 rounded-2xl border border-gold/20 bg-black/40 backdrop-blur-xl shadow-gold-glow">
-      {/* Search Input */}
-      <div className="flex-1 flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5">
-        <Search className="text-gold shrink-0" size={20} />
+    <div className="mb-8 flex flex-col gap-3 rounded-2xl border border-gold/20 bg-black/40 p-2 shadow-gold-glow backdrop-blur-xl sm:flex-row">
+      <div className="flex flex-1 items-center gap-3 rounded-xl bg-white/5 px-4 py-3">
+        <Search className="shrink-0 text-gold" size={20} />
 
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder={`Search for ${displayedText}`}
-          className="flex-1 bg-transparent text-white placeholder:text-zinc-500 outline-none text-sm md:text-base"
+          className="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-zinc-500 md:text-base"
+          aria-label="Search services"
         />
       </div>
 
-      {/* Location */}
       <div className="relative sm:w-48">
-        <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-gold/10">
-          <MapPin className="text-gold shrink-0" size={18} />
+        <div className="flex items-center gap-2 rounded-xl border border-gold/10 bg-white/5 px-4 py-3">
+          <MapPin className="shrink-0 text-gold" size={18} />
 
           <select
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            className="flex-1 bg-transparent text-white text-sm outline-none appearance-none cursor-pointer pr-6"
+            className="flex-1 cursor-pointer appearance-none bg-transparent pr-6 text-sm text-white outline-none"
+            aria-label="Select city"
           >
             {cities.map((c) => (
-              <option
-                key={c}
-                value={c}
-                className="bg-[#0A0A0A]"
-              >
+              <option key={c} value={c} className="bg-[#0A0A0A]">
                 {c}
               </option>
             ))}
           </select>
 
           <ChevronDown
-            className="text-gold absolute right-3 pointer-events-none"
+            className="pointer-events-none absolute right-3 text-gold"
             size={16}
           />
         </div>
       </div>
 
-      {/* Button */}
-      <Button onClick={() => openBooking()} className="shrink-0" glow>
+      <Button onClick={handleSearch} className="shrink-0" glow>
         Search
       </Button>
     </div>

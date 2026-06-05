@@ -246,7 +246,7 @@ export default function ContactUsPage() {
               </div>
 
               <div className="flex w-full flex-col gap-3 sm:flex-row md:w-auto">
-                <Link href="/#services" className="w-full sm:w-auto">
+                <Link href="/services" className="w-full sm:w-auto">
                   <Button className="w-full">Explore Services</Button>
                 </Link>
 

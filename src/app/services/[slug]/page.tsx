@@ -2,11 +2,22 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Clock, IndianRupee, ArrowLeft, CheckCircle } from "lucide-react";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { ServiceDetailClient } from "./ServiceDetailClient";
-import { getServiceBySlug, services } from "@/lib/data/services";
 import type { Metadata } from "next";
+
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { RelatedServices } from "@/components/services/RelatedServices";
+import { ServiceDetailClient } from "./ServiceDetailClient";
+import {
+  getRelatedServices,
+  getServiceBySlug,
+  services,
+} from "@/lib/data/services";
+import { buildServiceMetadata } from "@/lib/seo/metadata";
+import {
+  buildLocalBusinessSchema,
+  buildServiceSchema,
+} from "@/lib/seo/structured-data";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -16,14 +27,13 @@ export async function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
 
+export const revalidate = 3600;
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const service = getServiceBySlug(slug);
   if (!service) return { title: "Service Not Found" };
-  return {
-    title: service.name,
-    description: service.description,
-  };
+  return buildServiceMetadata(service);
 }
 
 export default async function ServiceDetailPage({ params }: PageProps) {
@@ -32,6 +42,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
   if (!service) notFound();
 
+  const relatedServices = getRelatedServices(slug);
   const features = [
     "Verified professionals",
     "Same-day availability",
@@ -42,64 +53,81 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
   return (
     <>
-        <div className="pt-24 pb-16 container mx-auto px-4 md:px-6">
-          <Link
-            href="/#services"
-            className="inline-flex items-center gap-2 text-gold/80 hover:text-gold mb-8 transition-colors"
-          >
-            <ArrowLeft size={18} />
-            Back to Services
-          </Link>
+      <JsonLd
+        data={[buildServiceSchema(service), buildLocalBusinessSchema()]}
+      />
 
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-gold/20 shadow-gold-glow">
-              <Image
-                src={service.image}
-                alt={service.name}
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
-              <span className="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-gold/20 text-gold text-sm border border-gold/30">
-                {service.category}
-              </span>
-            </div>
+      <div className="container mx-auto px-4 pb-16 pt-24 md:px-6">
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Services", href: "/services" },
+            { label: service.name },
+          ]}
+        />
 
-            <div>
-              <h1 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-                {service.name}
-              </h1>
-              <p className="text-zinc-400 leading-relaxed mb-6">
-                {service.description}
-              </p>
+        <Link
+          href="/services"
+          className="mb-8 inline-flex items-center gap-2 text-gold/80 transition-colors hover:text-gold"
+        >
+          <ArrowLeft size={18} />
+          Back to Services
+        </Link>
 
-              <div className="flex flex-wrap gap-6 mb-8">
-                <div className="flex items-center gap-2 text-gold">
-                  <IndianRupee size={20} />
-                  <span className="text-2xl font-bold">{service.price}</span>
-                  <span className="text-zinc-500 text-sm">starting</span>
-                </div>
-                <div className="flex items-center gap-2 text-zinc-400">
-                  <Clock size={20} className="text-gold" />
-                  <span>{service.duration}</span>
-                </div>
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-gold/20 shadow-gold-glow">
+            <Image
+              src={service.image}
+              alt={service.name}
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
+            <span className="absolute bottom-4 left-4 rounded-full border border-gold/30 bg-gold/20 px-3 py-1 text-sm text-gold">
+              {service.category}
+            </span>
+          </div>
+
+          <div>
+            <h1 className="mb-4 font-display text-3xl font-bold text-white md:text-4xl">
+              {service.name}
+            </h1>
+            <p className="mb-6 leading-relaxed text-zinc-400">
+              {service.description}
+            </p>
+
+            <div className="mb-8 flex flex-wrap gap-6">
+              <div className="flex items-center gap-2 text-gold">
+                <IndianRupee size={20} />
+                <span className="text-2xl font-bold">{service.price}</span>
+                <span className="text-sm text-zinc-500">starting</span>
               </div>
-
-              <ul className="space-y-3 mb-8">
-                {features.map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-zinc-300">
-                    <CheckCircle size={18} className="text-gold shrink-0" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              <ServiceDetailClient serviceId={service.id} serviceName={service.name} />
+              <div className="flex items-center gap-2 text-zinc-400">
+                <Clock size={20} className="text-gold" />
+                <span>{service.duration}</span>
+              </div>
             </div>
+
+            <ul className="mb-8 space-y-3">
+              {features.map((f) => (
+                <li key={f} className="flex items-center gap-2 text-zinc-300">
+                  <CheckCircle size={18} className="shrink-0 text-gold" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            <ServiceDetailClient
+              serviceId={service.id}
+              serviceName={service.name}
+            />
           </div>
         </div>
+
+        <RelatedServices slugs={relatedServices.map((s) => s.slug)} />
+      </div>
     </>
   );
 }

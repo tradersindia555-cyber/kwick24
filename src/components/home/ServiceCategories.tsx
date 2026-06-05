@@ -42,6 +42,15 @@ export function ServiceCategories() {
             <ServiseCard key={service.slug} service={service} />
           ))}
         </motion.div>
+
+        <div className="mt-10 text-center">
+          <Link
+            href="/services"
+            className="inline-flex items-center justify-center rounded-xl border border-gold/25 bg-gold/5 px-6 py-3 text-sm font-medium text-gold transition-colors hover:bg-gold/10"
+          >
+            View All Services
+          </Link>
+        </div>
       </div>
     </section>
   );

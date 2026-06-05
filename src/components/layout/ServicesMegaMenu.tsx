@@ -81,23 +81,32 @@ export function ServicesMegaMenu({
   if (variant === "mobile") {
     return (
       <div className={cn("border-b border-white/5", className)}>
-        <button
-          type="button"
-          className="w-full py-3 text-left text-zinc-300 hover:text-gold transition-colors flex items-center justify-between"
-          aria-expanded={open}
-          aria-controls={panelId}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="font-medium">Services</span>
-          <ChevronDown
-            size={18}
-            className={cn(
-              "text-gold transition-transform duration-200",
-              open && "rotate-180",
-            )}
-            aria-hidden="true"
-          />
-        </button>
+        <div className="flex items-center">
+          <Link
+            href="/services"
+            onClick={() => onSelect?.()}
+            className="flex-1 py-3 font-medium text-zinc-300 transition-colors hover:text-gold"
+          >
+            Services
+          </Link>
+          <button
+            type="button"
+            className="p-3 text-gold transition-colors hover:text-gold-light"
+            aria-expanded={open}
+            aria-controls={panelId}
+            aria-label="Expand services menu"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <ChevronDown
+              size={18}
+              className={cn(
+                "transition-transform duration-200",
+                open && "rotate-180",
+              )}
+              aria-hidden="true"
+            />
+          </button>
+        </div>
 
         <AnimatePresence initial={false}>
           {open && (
@@ -143,6 +152,19 @@ export function ServicesMegaMenu({
                   );
                 })}
               </div>
+
+              <div className="mt-4 border-t border-white/5 pt-4">
+                <Link
+                  href="/services"
+                  onClick={() => {
+                    setOpen(false);
+                    onSelect?.();
+                  }}
+                  className="block rounded-xl border border-gold/20 bg-gold/5 px-4 py-3 text-center text-sm font-medium text-gold transition-colors hover:bg-gold/10"
+                >
+                  View All Services
+                </Link>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -162,9 +184,9 @@ export function ServicesMegaMenu({
         }
       }}
     >
-      <button
-        type="button"
-        className="text-sm text-zinc-300 hover:text-gold transition-colors relative group flex items-center gap-1"
+      <Link
+        href="/services"
+        className="group relative flex items-center gap-1 text-sm text-zinc-300 transition-colors hover:text-gold"
         aria-expanded={open}
         aria-controls={panelId}
       >
@@ -172,13 +194,13 @@ export function ServicesMegaMenu({
         <ChevronDown
           size={16}
           className={cn(
-            "transition-transform duration-200 text-gold/80 group-hover:text-gold",
+            "text-gold/80 transition-transform duration-200 group-hover:text-gold",
             open && "rotate-180",
           )}
           aria-hidden="true"
         />
-        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300" />
-      </button>
+        <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gold transition-all duration-300 group-hover:w-full" />
+      </Link>
 
       <AnimatePresence>
         {open && (
@@ -228,6 +250,16 @@ export function ServicesMegaMenu({
                     </Link>
                   );
                 })}
+              </div>
+
+              <div className="mt-5 border-t border-white/5 pt-5 text-center">
+                <Link
+                  href="/services"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center justify-center rounded-xl border border-gold/25 bg-gold/5 px-6 py-2.5 text-sm font-medium text-gold transition-colors hover:bg-gold/10"
+                >
+                  View All Services
+                </Link>
               </div>
             </div>
           </motion.div>

@@ -120,7 +120,7 @@ function AboutHero() {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link href="/#services">
+            <Link href="/services">
               <Button size="lg" glow>
                 Explore Services
               </Button>
@@ -592,7 +592,7 @@ function AboutCta() {
                       Contact Us
                     </Button>
                   </Link>
-                  <Link href="/#services" className="w-full sm:w-auto">
+                  <Link href="/services" className="w-full sm:w-auto">
                     <Button variant="outline" className="w-full" size="lg">
                       Explore Services
                     </Button>

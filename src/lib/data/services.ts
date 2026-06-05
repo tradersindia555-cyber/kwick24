@@ -290,3 +290,41 @@ export const cities = [
 export function getServiceBySlug(slug: string): Service | undefined {
   return services.find((s) => s.slug === slug);
 }
+
+export type SerializableServiceCategory = {
+  name: string;
+  slug: string;
+  description: string;
+  category: string;
+  iconKey: string;
+};
+
+export function getSerializableServiceCategories(): SerializableServiceCategory[] {
+  return serviceCategories.map((cat) => {
+    const detail = services.find((s) => s.slug === cat.slug);
+    return {
+      name: cat.name,
+      slug: cat.slug,
+      description: cat.description,
+      category: detail?.category ?? "General",
+      iconKey: detail?.icon ?? "home",
+    };
+  });
+}
+
+export function getUniqueServiceCategories(): string[] {
+  return [...new Set(services.map((s) => s.category))];
+}
+
+export function getRelatedServices(slug: string, limit = 4): Service[] {
+  const current = getServiceBySlug(slug);
+  if (!current) return [];
+
+  return services
+    .filter((s) => s.slug !== slug && s.category === current.category)
+    .slice(0, limit);
+}
+
+export const POPULAR_SERVICE_SLUGS = serviceCategories
+  .slice(0, 4)
+  .map((s) => s.slug);

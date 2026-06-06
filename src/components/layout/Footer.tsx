@@ -1,6 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Share2, MessageCircle, Globe, Link2, Mail, Phone, MapPin } from "lucide-react";
+import {
+  Share2,
+  MessageCircle,
+  Globe,
+  Link2,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
 import { GoldDivider } from "@/components/ui/GoldDivider";
 import { serviceCategories } from "@/lib/data/services";
 
@@ -18,7 +26,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <Image src="/image.png" alt="Kwick24" width={48} height={48} />
+              <Image
+                src="/images/kwick24_logo.png"
+                alt="Kwick24"
+                width={48}
+                height={48}
+              />
               <div>
                 <span className="font-display font-bold text-white text-lg">
                   Kwick24
@@ -50,27 +63,42 @@ export function Footer() {
             <h4 className="font-display text-gold font-semibold mb-4">About</h4>
             <ul className="space-y-2 text-sm text-zinc-400">
               <li>
-                <Link href="/about-us" className="hover:text-gold transition-colors">
+                <Link
+                  href="/about-us"
+                  className="hover:text-gold transition-colors"
+                >
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/our-mission" className="hover:text-gold transition-colors">
+                <Link
+                  href="/our-mission"
+                  className="hover:text-gold transition-colors"
+                >
                   Our Mission
                 </Link>
               </li>
               <li>
-                <Link href="/our-vision" className="hover:text-gold transition-colors">
+                <Link
+                  href="/our-vision"
+                  className="hover:text-gold transition-colors"
+                >
                   Our Vision
                 </Link>
               </li>
               <li>
-                <Link href="/partner" className="hover:text-gold transition-colors">
+                <Link
+                  href="/partner"
+                  className="hover:text-gold transition-colors"
+                >
                   Become a Partner
                 </Link>
               </li>
               <li>
-                <Link href="/contact-us" className="hover:text-gold transition-colors">
+                <Link
+                  href="/contact-us"
+                  className="hover:text-gold transition-colors"
+                >
                   Contact Us
                 </Link>
               </li>
@@ -90,7 +118,7 @@ export function Footer() {
                   All Services
                 </Link>
               </li>
-              {serviceCategories.map((s) => (
+              {serviceCategories.slice(0, 4).map((s) => (
                 <li key={s.slug}>
                   <Link
                     href={`/services/${s.slug}`}
@@ -127,7 +155,9 @@ export function Footer() {
         <GoldDivider className="mb-8" />
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
-          <p>© {new Date().getFullYear()} Kwick24 Services. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} Kwick24 Services. All rights reserved.
+          </p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-gold transition-colors">
               Privacy Policy
@@ -135,7 +165,10 @@ export function Footer() {
             <Link href="/terms" className="hover:text-gold transition-colors">
               Terms & Conditions
             </Link>
-            <Link href="/admin-dashboard" className="hover:text-gold transition-colors">
+            <Link
+              href="/admin-dashboard"
+              className="hover:text-gold transition-colors"
+            >
               Admin
             </Link>
           </div>

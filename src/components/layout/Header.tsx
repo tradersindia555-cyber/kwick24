@@ -40,7 +40,7 @@ export function Header() {
         "fixed left-0 right-0 top-0 z-50 transition-all duration-300",
         scrolled
           ? "border-b border-gold/10 bg-[#0A0A0A]/90 shadow-lg backdrop-blur-xl"
-          : "bg-transparent"
+          : "bg-transparent",
       )}
     >
       <div className="container mx-auto px-4 md:px-6">
@@ -127,7 +127,8 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-t border-gold/10 bg-[#0A0A0A]/98 backdrop-blur-xl lg:hidden"
+            className="border-t border-gold/10 bg-[#0A0A0A]/98 backdrop-blur-xl lg:hidden   max-h-[calc(100vh-64px)]
+    overflow-y-auto"
           >
             <nav className="container mx-auto flex flex-col gap-2 px-4 py-4">
               {navLinks.map((link, index) => (
